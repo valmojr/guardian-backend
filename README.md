@@ -1,0 +1,2 @@
+# Guardian Back End Server
+This repository is the backend part of Guardian, a personnal project for a Command and Control System inspired in SINESP CAD (Brazilian Ministry of Justice C2 Tool for Public Safety), Pacificador (Brazilian Army C2 Tool for Law Enforcement Operations) and ATAK (NATO C2 Situational Awareness Tool).
