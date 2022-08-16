@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class FirstResponder {
-    int id;
-    String username;
-    String password;
-    String email;
-    String showedName;
-    int privilegeLevel;
-    ArrayList<String> reportedPosition;
-    ArrayList<Date> reportedPositionTime;
-    int FirstResponderType;
-    boolean state;
-    String description;
-    ArrayList<Integer> assignedAction;
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private String showedName;
+    private int privilegeLevel;
+    private ArrayList<String> reportedPosition;
+    private ArrayList<Date> reportedPositionTime;
+    private int FirstResponderType;
+    private boolean state;
+    private String description;
+    private ArrayList<Integer> assignedAction;
 
     public int getId() {
         return id;

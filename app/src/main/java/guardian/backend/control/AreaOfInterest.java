@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class AreaOfInterest {
-    int id;
-    ArrayList<String> reportedPosition;
-    ArrayList<Date> reportedPositionTime;
-    int danger;
-    boolean state;
-    String description;
-    int assignedUserId;
+    private int id;
+    private ArrayList<String> reportedPosition;
+    private ArrayList<Date> reportedPositionTime;
+    private int danger;
+    private boolean state;
+    private String description;
+    private ArrayList<Integer> assignedActionId;
     
     public int getId() {
         return id;
@@ -36,7 +36,7 @@ public class AreaOfInterest {
     public void setDanger(int danger) {
         this.danger = danger;
     }
-    public boolean isState() {
+    public boolean getState() {
         return state;
     }
     public void setState(boolean state) {
@@ -48,10 +48,10 @@ public class AreaOfInterest {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getAssignedUserId() {
-        return assignedUserId;
+    public ArrayList<Integer> getAssignedActionId() {
+        return assignedActionId;
     }
-    public void setAssignedUserId(int assignedUserId) {
-        this.assignedUserId = assignedUserId;
+    public void setAssignedActionId(ArrayList<Integer> assignedActionId) {
+        this.assignedActionId = assignedActionId;
     }
 }

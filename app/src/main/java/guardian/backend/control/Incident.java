@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Incident {
-    int id;
-    ArrayList<String> reportedPosition;
-    ArrayList<Date> reportedPositionTime;
-    int danger;
-    int state;
-    String description;
-    int assignedActionId;
+    private int id;
+    private ArrayList<String> reportedPosition;
+    private ArrayList<Date> reportedPositionTime;
+    private int danger;
+    private int state;
+    private String description;
+    private ArrayList<Integer> assignedActionId;
 
     public int getId() {
         return id;
@@ -48,10 +48,10 @@ public class Incident {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getAssignedActionId() {
+    public ArrayList<Integer> getAssignedActionId() {
         return assignedActionId;
     }
-    public void setAssignedActionId(int assignedActionId) {
+    public void setAssignedActionId(ArrayList<Integer> assignedActionId) {
         this.assignedActionId = assignedActionId;
     }
     public void updateReport(String newPosition, Date newReportTime) {

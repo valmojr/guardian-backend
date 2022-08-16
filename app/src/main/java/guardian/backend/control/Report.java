@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Report {
-    int id;
-    String reportDescription;
-    ArrayList<Integer> assignedUserId;
-    int assignedRelatedEventId;
-    ArrayList<String> reportedLocation;
-    ArrayList<Date> reportedLocationTime;
-    String reportObservation;
+    private int id;
+    private String reportDescription;
+    private ArrayList<Integer> assignedUserId;
+    private int assignedRelatedEventId;
+    private ArrayList<String> reportedLocation;
+    private ArrayList<Date> reportedLocationTime;
+    private String reportObservation;
     
     public int getId() {
         return id;

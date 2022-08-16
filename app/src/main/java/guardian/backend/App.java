@@ -4,21 +4,22 @@
 package guardian.backend;
 
 import java.util.Date;
+
+import javax.swing.text.DateFormatter;
+
 import java.util.ArrayList;
 
-import guardian.backend.model.ArrayConverter;
+import guardian.backend.model.ArrayConverterFactory;
 
 public class App {
     public static void main(String[] args) {
-        ArrayList<Date> dateArray = new ArrayList<Date>();
-        dateArray.add(new Date());
-        dateArray.add(new Date());
-        dateArray.add(new Date());
-        dateArray.add(new Date());
-        ArrayConverter arrayConverter = new ArrayConverter();
-        String json = arrayConverter.dateArrayToJSON(dateArray);
+        ArrayList<Date> oldTestArrayList = new ArrayList<Date>();
+        oldTestArrayList.add(new Date());
+        oldTestArrayList.add(new Date());
+        String json = new ArrayConverterFactory().dateArrayToJSON(oldTestArrayList);
         System.out.println(json);
-        ArrayList<Date> newArray = arrayConverter.jsonToDateArray(json);
-        System.out.println(newArray);
+        ArrayList<Date> newArrayList = new ArrayConverterFactory().jsonToDateArray(json);
+        System.out.println(oldTestArrayList);
+        System.out.println(newArrayList);
     }
 }

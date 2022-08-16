@@ -3,11 +3,11 @@ package guardian.backend.control;
 import java.util.ArrayList;
 
 public class Patrol {
-    int id;
-    String description;
-    ArrayList<Integer> assignedUserId;
-    ArrayList<Integer> assignedIncidentId;
-    boolean state;
+    private int id;
+    private String description;
+    private ArrayList<Integer> assignedUserId;
+    private ArrayList<Integer> assignedIncidentId;
+    private boolean state;
     
     public int getId() {
         return id;
@@ -33,7 +33,7 @@ public class Patrol {
     public void setAssignedIncidentId(ArrayList<Integer> assignedIncidentId) {
         this.assignedIncidentId = assignedIncidentId;
     }
-    public boolean isState() {
+    public boolean getState() {
         return state;
     }
     public void setState(boolean state) {

@@ -4,13 +4,12 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Action {
-    int id;
-    ArrayList<String> reportedPosition;
-    ArrayList<Date> reportedPositionTime;
-    String description;
-    ArrayList<Integer> assignedUserId;
-    ArrayList<Integer> assignedIncidentId;
-    
+    private int id;
+    private ArrayList<String> reportedPosition;
+    private ArrayList<Date> reportedPositionTime;
+    private String description;
+    private ArrayList<Integer> assignedUserId;
+    private ArrayList<Integer> assignedIncidentId;
     boolean state;
     
     public int getId() {
@@ -18,6 +17,18 @@ public class Action {
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public ArrayList<String> getReportedPosition() {
+        return reportedPosition;
+    }
+    public void setReportedPosition(ArrayList<String> reportedPosition) {
+        this.reportedPosition = reportedPosition;
+    }
+    public ArrayList<Date> getReportedPositionTime() {
+        return reportedPositionTime;
+    }
+    public void setReportedPositionTime(ArrayList<Date> reportedPositionTime) {
+        this.reportedPositionTime = reportedPositionTime;
     }
     public String getDescription() {
         return description;
