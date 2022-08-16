@@ -3,12 +3,22 @@
  */
 package guardian.backend;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.Date;
+import java.util.ArrayList;
 
+import guardian.backend.model.ArrayConverter;
+
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        ArrayList<Date> dateArray = new ArrayList<Date>();
+        dateArray.add(new Date());
+        dateArray.add(new Date());
+        dateArray.add(new Date());
+        dateArray.add(new Date());
+        ArrayConverter arrayConverter = new ArrayConverter();
+        String json = arrayConverter.dateArrayToJSON(dateArray);
+        System.out.println(json);
+        ArrayList<Date> newArray = arrayConverter.jsonToDateArray(json);
+        System.out.println(newArray);
     }
 }
