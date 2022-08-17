@@ -1,13 +1,11 @@
-package guardian.backend.control;
+package guardian.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
-
-import guardian.backend.model.ArrayConverterFactory;
 
 public class ArrayConverterFactoryTest {
     @Test
@@ -32,11 +30,10 @@ public class ArrayConverterFactoryTest {
     };
     @Test
     public void canConvertFromDateArrayListToJSON() {
-        ArrayList<Date> oldTestArrayList = new ArrayList<Date>();
-        oldTestArrayList.add(new Date());
-        String json = new ArrayConverterFactory().dateArrayToJSON(oldTestArrayList);
-        ArrayList<Date> newTestArrayList = new ArrayConverterFactory().jsonToDateArray(json);
+        ArrayList<LocalDateTime> oldTestArrayList = new ArrayList<LocalDateTime>();
+        oldTestArrayList.add(LocalDateTime.now());
+        String json = new ArrayConverterFactory().LocalDateTimeArrayToJSON(oldTestArrayList);
+        ArrayList<LocalDateTime> newTestArrayList = new ArrayConverterFactory().jsonToLocalDateTimeArray(json);
         assertEquals(oldTestArrayList, newTestArrayList);
-        
     };
 }

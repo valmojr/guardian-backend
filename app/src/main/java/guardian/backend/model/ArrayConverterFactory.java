@@ -1,10 +1,9 @@
 package guardian.backend.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class ArrayConverterFactory {
     public String intArrayToJSON(ArrayList<Integer> arrayList) {
@@ -13,12 +12,23 @@ public class ArrayConverterFactory {
     public String stringArrayToJSON(ArrayList<String> arrayList) {
         return new Gson().toJson(arrayList);
     }
-    public String dateArrayToJSON(ArrayList<Date> arrayList) {
-        ArrayList<Long> longConverter = new ArrayList<Long>();
+    public String LocalDateTimeArrayToJSON(ArrayList<LocalDateTime> arrayList) {
+        ArrayList<ArrayList<Integer>> dateShelf = new ArrayList<ArrayList<Integer>>();
+
         for (int i = 0; i < arrayList.size(); i++) {
-            longConverter.add(arrayList.get(i).getTime());
+            ArrayList<Integer> newDateInInteger = new ArrayList<Integer>();
+            newDateInInteger.add(arrayList.get(i).getYear());
+            newDateInInteger.add(arrayList.get(i).getMonthValue());
+            newDateInInteger.add(arrayList.get(i).getDayOfMonth());
+            newDateInInteger.add(arrayList.get(i).getHour());
+            newDateInInteger.add(arrayList.get(i).getMinute());
+            newDateInInteger.add(arrayList.get(i).getSecond());
+            newDateInInteger.add(arrayList.get(i).getNano());
+            dateShelf.add(newDateInInteger);
         }
-        return new Gson().toJson(longConverter);
+        System.out.println(dateShelf);
+        String json = new Gson().toJson(dateShelf);
+        return json;
     }
     public ArrayList<Integer> jsonToIntArray(String json) {
         ArrayList<Double> extractedArray = new Gson().fromJson(json, ArrayList.class);
@@ -31,19 +41,22 @@ public class ArrayConverterFactory {
     public ArrayList<String> jsonToStringArray(String json) {
         return new Gson().fromJson(json, ArrayList.class);
     }
-    public ArrayList<Date> jsonToDateArray(String json) {
-        ArrayList<Date> newArrayList = new ArrayList<Date>();
-        ArrayList<Double> manipuledArray = new Gson().fromJson(json, ArrayList.class);
-        ArrayList<Integer> extractedArray = new ArrayList<>();
-        for (int i = 0; i < manipuledArray.size(); i++) {
-            extractedArray.add((int) Math.round(manipuledArray.get(i)));
+    public ArrayList<LocalDateTime> jsonToLocalDateTimeArray(String json) {
+        ArrayList<ArrayList<Double>> newDateShelfInDouble = new Gson().fromJson(json, ArrayList.class);
+        ArrayList<ArrayList<Integer>> newDateShelfInInteger = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < newDateShelfInDouble.size(); i++) {
+            ArrayList<Integer> newDateInInteger = new ArrayList<Integer>();
+            for (int j = 0; j < newDateShelfInDouble.get(i).size(); j++) {
+                newDateInInteger.add((int) Math.round(newDateShelfInDouble.get(i).get(j)));
+            }
+            newDateShelfInInteger.add(newDateInInteger);
         }
-        for (int i = 0; i < extractedArray.size(); i++) {
-            Date newDate = new Date();
-            long time = extractedArray.get(i);
-            newDate.setTime(time);
-            newArrayList.add(newDate);
+        System.out.println(newDateShelfInInteger);
+        ArrayList<LocalDateTime> newLocalDateTimeArrayList = new ArrayList<LocalDateTime>();
+        for (int i = 0; i < newDateShelfInInteger.size(); i++) {
+            LocalDateTime newDate = LocalDateTime.of(newDateShelfInInteger.get(i).get(0), newDateShelfInInteger.get(i).get(1), newDateShelfInInteger.get(i).get(2), newDateShelfInInteger.get(i).get(3), newDateShelfInInteger.get(i).get(4), newDateShelfInInteger.get(i).get(5), newDateShelfInInteger.get(i).get(6));
+            newLocalDateTimeArrayList.add(newDate);
         }
-        return newArrayList;
+        return newLocalDateTimeArrayList;
     }
 }
