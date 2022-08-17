@@ -5,10 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
-
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
-
 import guardian.backend.control.Action;
 
 public class ActionDAO {
@@ -96,7 +92,18 @@ public class ActionDAO {
 
             preparedStatement.execute();
         } catch (Exception e) {
-            //TODO: handle exception
+            System.out.println("Error while connecting" + e.getMessage());
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection" + e.getMessage());
+            }
         }
     }
 }
