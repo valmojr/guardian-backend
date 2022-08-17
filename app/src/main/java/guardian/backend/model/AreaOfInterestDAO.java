@@ -9,7 +9,7 @@ import guardian.backend.control.AreaOfInterest;
 
 public class AreaOfInterestDAO {
     public void create(AreaOfInterest areaOfInterest) {
-        String sql = "INSERT INTO areaOfInterests(reportedPosition,reportedPositionTime,danger,state,description,assignedActionId) VALUES(?,?,?,?,?;?)";
+        String sql = "INSERT INTO areaOfInterests(reportedPosition,reportedPositionTime,danger,state,description,assignedActionId) VALUES(?,?,?,?,?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -78,7 +78,7 @@ public class AreaOfInterestDAO {
         return areaOfInterests;
     }
     public void update(AreaOfInterest areaOfInterest) {
-        String sql = "UPDATE areaOfInterests SET reportedPosition = ?, reportedPositionTime = ?, description = ?, assignedUserId = ?, assignedIncidentId = ?" + "WHERE id = ?";
+        String sql = "UPDATE areaOfInterests SET reportedPosition=?,reportedPositionTime=?,danger=?,state=?,description=?,assignedActionId=?" + "WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -90,7 +90,7 @@ public class AreaOfInterestDAO {
             preparedStatement.setBoolean(4, areaOfInterest.getState());
             preparedStatement.setString(5, areaOfInterest.getDescription());
             preparedStatement.setString(6, new ArrayConverterFactory().intArrayToJSON(areaOfInterest.getAssignedActionId()));
-            preparedStatement.setInt(6, areaOfInterest.getId());
+            preparedStatement.setInt(7, areaOfInterest.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while connecting: " + e.getMessage());

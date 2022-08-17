@@ -1,9 +1,7 @@
 package guardian.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
-
 import guardian.backend.control.Report;
 
 public class ReportDAOTest {
@@ -32,7 +30,7 @@ public class ReportDAOTest {
     public void canDeleteReports() {
         ReportDAO classUnderTest = new ReportDAO();
         int beforeCreate = classUnderTest.read().size();
-        classUnderTest.delete(classUnderTest.read().size()-1);
+        classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
         int afterCreate = classUnderTest.read().size();
         assertEquals(beforeCreate, afterCreate+1);
     };

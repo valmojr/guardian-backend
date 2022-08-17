@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class AreaOfInterest {
     private int id;
-    private ArrayList<String> reportedPosition;
-    private ArrayList<LocalDateTime> reportedPositionTime;
+    private ArrayList<String> reportedPosition = new ArrayList<String>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
     private int danger;
     private boolean state;
     private String description;
-    private ArrayList<Integer> assignedActionId;
+    private ArrayList<Integer> assignedActionId = new ArrayList<Integer>();
     
     public int getId() {
         return id;

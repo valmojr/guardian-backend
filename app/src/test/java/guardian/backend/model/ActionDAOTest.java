@@ -35,7 +35,7 @@ public class ActionDAOTest {
     public void canDeleteActions() {
         ActionDAO classUnderTest = new ActionDAO();
         int beforeCreate = classUnderTest.read().size();
-        classUnderTest.delete(classUnderTest.read().size()-1);
+        classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
         int afterCreate = classUnderTest.read().size();
         assertEquals(beforeCreate, afterCreate+1);
     };

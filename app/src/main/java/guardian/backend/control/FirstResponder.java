@@ -1,6 +1,6 @@
 package guardian.backend.control;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FirstResponder {
@@ -10,12 +10,12 @@ public class FirstResponder {
     private String email;
     private String showedName;
     private int privilegeLevel;
-    private ArrayList<String> reportedPosition;
-    private ArrayList<Date> reportedPositionTime;
-    private int FirstResponderType;
+    private ArrayList<String> reportedPosition = new ArrayList<String>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
+    private int firstResponderType;
     private boolean state;
     private String description;
-    private ArrayList<Integer> assignedAction;
+    private ArrayList<Integer> assignedAction = new ArrayList<Integer>();
 
     public int getId() {
         return id;
@@ -59,17 +59,17 @@ public class FirstResponder {
     public void setReportedPosition(ArrayList<String> reportedPosition) {
         this.reportedPosition = reportedPosition;
     }
-    public ArrayList<Date> getReportedPositionTime() {
+    public ArrayList<LocalDateTime> getReportedPositionTime() {
         return reportedPositionTime;
     }
-    public void setReportedPositionTime(ArrayList<Date> reportedPositionTime) {
+    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
         this.reportedPositionTime = reportedPositionTime;
     }
     public int getFirstResponderType() {
-        return FirstResponderType;
+        return firstResponderType;
     }
     public void setFirstResponderType(int firstResponderType) {
-        FirstResponderType = firstResponderType;
+        this.firstResponderType = firstResponderType;
     }
     public boolean getState() {
         return state;
