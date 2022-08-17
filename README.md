@@ -5,7 +5,7 @@ This repository is the backend part of Guardian, a personnal project for situati
 Precise perception of the factors and conditions that affect the execution of the task during a determined period of time, allowing or providing the decision maker to be aware of what is going on around him and thus to be able to focus his thinking ahead of the objective. It is the perfect harmony between the perceived situation and the real situation.
 
 ## Web Application Architecture
-![Project Architecture]()
+![Project Architecture](https://github.com/valmojr/guardian-backend/blob/main/Software%20Modelling/guardianarchtecture.png?raw=true)
 
 ## BackEnd Software Modelling
 This works in a MVC kind project concept: Models (actors interactions), View(console printed) and Controllers (Data Acess Objects) with the following agents and data base:
