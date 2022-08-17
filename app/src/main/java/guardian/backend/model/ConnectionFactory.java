@@ -9,7 +9,7 @@ public class ConnectionFactory {
     private static final String password = "";
 
     public static Connection createConnectionToMySQLDatabase() throws Exception{
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(url, username, password);
         return connection;
     }

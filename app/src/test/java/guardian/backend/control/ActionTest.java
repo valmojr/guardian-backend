@@ -22,4 +22,10 @@ public class ActionTest {
         assertEquals(classUnderTest.getDescription(), "description");
         assertEquals(classUnderTest.getState(), true);
     }
+    @Test
+    public void canAddReportedPosition() {
+        Action classUnderTest = new Action();
+        classUnderTest.addReportedPositon("x,y");
+        assertEquals(classUnderTest.getReportedPosition().get(0), "x,y");
+    }
 }

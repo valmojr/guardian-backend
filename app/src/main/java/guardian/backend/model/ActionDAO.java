@@ -20,6 +20,7 @@ public class ActionDAO {
             preparedStatement.setString(3, action.getDescription());
             preparedStatement.setString(4, new ArrayConverterFactory().intArrayToJSON(action.getAssignedUserId()));
             preparedStatement.setString(5, new ArrayConverterFactory().intArrayToJSON(action.getAssignedIncidentId()));
+            preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while connecting" + e.getMessage());
         } finally {
@@ -38,11 +39,9 @@ public class ActionDAO {
     public ArrayList<Action> read() {
         String sql = "SELECT * FROM actions";
         ArrayList<Action> actions = new ArrayList<Action>();
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
@@ -74,10 +73,10 @@ public class ActionDAO {
                 System.out.println("Error while closing the connection" + e.getMessage());
             }
         }
-        return new ArrayList<Action>();
+        return actions;
     }
     public void update(Action action) {
-        String sql = "UPDATE actions SET reportedPosition = ?, reportedPositionTime = ?, description = ?, assignedUserId = ?, assignedIncidentId = ?" + "WHERE = ?";
+        String sql = "UPDATE actions SET reportedPosition = ?, reportedPositionTime = ?, description = ?, assignedUserId = ?, assignedIncidentId = ?" + "WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -90,6 +89,30 @@ public class ActionDAO {
             preparedStatement.setString(5, new ArrayConverterFactory().intArrayToJSON(action.getAssignedIncidentId()));
             preparedStatement.setInt(6, action.getId());
 
+            preparedStatement.execute();
+        } catch (Exception e) {
+            System.out.println("Error while connecting" + e.getMessage());
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection" + e.getMessage());
+            }
+        }
+    }
+    public void delete(int id) {
+        String sql = "DELETE FROM actions WHERE id = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while connecting" + e.getMessage());

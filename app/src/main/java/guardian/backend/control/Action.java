@@ -5,13 +5,16 @@ import java.util.ArrayList;
 
 public class Action {
     private int id;
-    private ArrayList<String> reportedPosition;
-    private ArrayList<LocalDateTime> reportedPositionTime;
+    private ArrayList<String> reportedPosition = new ArrayList<String>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
     private String description;
-    private ArrayList<Integer> assignedUserId;
-    private ArrayList<Integer> assignedIncidentId;
+    private ArrayList<Integer> assignedUserId = new ArrayList<Integer>();
+    private ArrayList<Integer> assignedIncidentId = new ArrayList<Integer>();
     boolean state;
     
+    public Action() {
+        this.setState(false);
+    }
     public int getId() {
         return id;
     }
@@ -53,5 +56,17 @@ public class Action {
     }
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public void addReportedPositon(String reportedPosition) {
+        this.getReportedPosition().add(reportedPosition);
+        this.reportedPositionTime.add(LocalDateTime.now());
+        this.state = true;
+    }
+    public void addAssignedUserId(int id) {
+        this.assignedUserId.add(id);
+    }
+    public void addAssignedIncidentId(int id) {
+        this.assignedIncidentId.add(id);
     }
 }

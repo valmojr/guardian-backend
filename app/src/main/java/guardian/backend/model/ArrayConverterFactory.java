@@ -26,7 +26,6 @@ public class ArrayConverterFactory {
             newDateInInteger.add(arrayList.get(i).getNano());
             dateShelf.add(newDateInInteger);
         }
-        System.out.println(dateShelf);
         String json = new Gson().toJson(dateShelf);
         return json;
     }
@@ -51,7 +50,6 @@ public class ArrayConverterFactory {
             }
             newDateShelfInInteger.add(newDateInInteger);
         }
-        System.out.println(newDateShelfInInteger);
         ArrayList<LocalDateTime> newLocalDateTimeArrayList = new ArrayList<LocalDateTime>();
         for (int i = 0; i < newDateShelfInInteger.size(); i++) {
             LocalDateTime newDate = LocalDateTime.of(newDateShelfInInteger.get(i).get(0), newDateShelfInInteger.get(i).get(1), newDateShelfInInteger.get(i).get(2), newDateShelfInInteger.get(i).get(3), newDateShelfInInteger.get(i).get(4), newDateShelfInInteger.get(i).get(5), newDateShelfInInteger.get(i).get(6));
