@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import guardian.backend.control.Action;
 
 public class ActionDAO {
@@ -22,7 +21,7 @@ public class ActionDAO {
             preparedStatement.setString(5, new ArrayConverterFactory().intArrayToJSON(action.getAssignedIncidentId()));
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while connecting" + e.getMessage());
+            System.out.println("Error while connecting: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -32,7 +31,7 @@ public class ActionDAO {
                     connection.close();
                 }
             } catch (Exception e) {
-                System.out.println("Error while closing the connection" + e.getMessage());
+                System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
     }
@@ -57,7 +56,7 @@ public class ActionDAO {
                 actions.add(action);
             }
         } catch (Exception e) {
-            System.out.println("Error while connecting" + e.getMessage());
+            System.out.println("Error while connecting: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -70,7 +69,7 @@ public class ActionDAO {
                     connection.close();
                 }
             } catch (Exception e) {
-                System.out.println("Error while closing the connection" + e.getMessage());
+                System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
         return actions;
@@ -91,7 +90,7 @@ public class ActionDAO {
 
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while connecting" + e.getMessage());
+            System.out.println("Error while connecting: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -101,7 +100,7 @@ public class ActionDAO {
                     connection.close();
                 }
             } catch (Exception e) {
-                System.out.println("Error while closing the connection" + e.getMessage());
+                System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
     }
@@ -115,7 +114,7 @@ public class ActionDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while connecting" + e.getMessage());
+            System.out.println("Error while connecting: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -125,7 +124,7 @@ public class ActionDAO {
                     connection.close();
                 }
             } catch (Exception e) {
-                System.out.println("Error while closing the connection" + e.getMessage());
+                System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
     }

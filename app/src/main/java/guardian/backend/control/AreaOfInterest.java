@@ -1,12 +1,12 @@
 package guardian.backend.control;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class AreaOfInterest {
     private int id;
     private ArrayList<String> reportedPosition;
-    private ArrayList<Date> reportedPositionTime;
+    private ArrayList<LocalDateTime> reportedPositionTime;
     private int danger;
     private boolean state;
     private String description;
@@ -24,10 +24,10 @@ public class AreaOfInterest {
     public void setReportedPosition(ArrayList<String> reportedPosition) {
         this.reportedPosition = reportedPosition;
     }
-    public ArrayList<Date> getReportedPositionTime() {
+    public ArrayList<LocalDateTime> getReportedPositionTime() {
         return reportedPositionTime;
     }
-    public void setReportedPositionTime(ArrayList<Date> reportedPositionTime) {
+    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
         this.reportedPositionTime = reportedPositionTime;
     }
     public int getDanger() {

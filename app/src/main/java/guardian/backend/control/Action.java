@@ -57,10 +57,9 @@ public class Action {
     public void setState(boolean state) {
         this.state = state;
     }
-
     public void addReportedPositon(String reportedPosition) {
         this.getReportedPosition().add(reportedPosition);
-        this.reportedPositionTime.add(LocalDateTime.now());
+        this.getReportedPositionTime().add(LocalDateTime.now());
         this.state = true;
     }
     public void addAssignedUserId(int id) {

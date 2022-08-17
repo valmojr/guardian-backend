@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Patrol {
     private int id;
     private String description;
+    private int designatedAreaOfInterestId;
     private ArrayList<Integer> assignedUserId;
     private ArrayList<Integer> assignedIncidentId;
     private boolean state;
@@ -20,6 +21,12 @@ public class Patrol {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public int getDesignatedAreaOfInterestId() {
+        return designatedAreaOfInterestId;
+    }
+    public void setDesignatedAreaOfInterestId(int designatedAreaOfInterest) {
+        this.designatedAreaOfInterestId = designatedAreaOfInterest;
     }
     public ArrayList<Integer> getAssignedUserId() {
         return assignedUserId;

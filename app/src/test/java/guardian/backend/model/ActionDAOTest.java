@@ -1,9 +1,7 @@
 package guardian.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
-
 import guardian.backend.control.Action;
 
 public class ActionDAOTest {

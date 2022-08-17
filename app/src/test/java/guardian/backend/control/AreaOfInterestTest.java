@@ -2,8 +2,8 @@ package guardian.backend.control;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ public class AreaOfInterestTest {
     public void canAllocateAndUpdateAllNecessaryInformation() {
         AreaOfInterest classUnderTest = new AreaOfInterest();
         ArrayList<String> testPositionReportRecord = new ArrayList<String>();
-        ArrayList<Date> testPositionReportTimeRecord = new ArrayList<Date>();
+        ArrayList<LocalDateTime> testPositionReportTimeRecord = new ArrayList<LocalDateTime>();
         ArrayList<Integer> testActionId = new ArrayList<Integer>();
         classUnderTest.setId(0);
         classUnderTest.setReportedPosition(testPositionReportRecord);

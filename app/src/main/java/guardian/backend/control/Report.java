@@ -1,16 +1,20 @@
 package guardian.backend.control;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Report {
     private int id;
-    private String reportDescription;
-    private ArrayList<Integer> assignedUserId;
+    private String reportDescription = "";
+    private ArrayList<Integer> assignedUserId = new ArrayList<Integer>();
     private int assignedRelatedEventId;
-    private ArrayList<String> reportedLocation;
-    private ArrayList<Date> reportedLocationTime;
-    private String reportObservation;
+    private ArrayList<String> reportedPosition = new ArrayList<String>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
+    private String reportObservation = "";
+    
+    public Report() {};
+    public Report(Patrol patrol) {};
+    public Report(Action action) {};
     
     public int getId() {
         return id;
@@ -36,22 +40,29 @@ public class Report {
     public void setAssignedRelatedEventId(int assignedRelatedEventId) {
         this.assignedRelatedEventId = assignedRelatedEventId;
     }
-    public ArrayList<String> getReportedLocation() {
-        return reportedLocation;
+    public ArrayList<String> getReportedPosition() {
+        return reportedPosition;
     }
-    public void setReportedLocation(ArrayList<String> reportedLocation) {
-        this.reportedLocation = reportedLocation;
+    public void setReportedPosition(ArrayList<String> reportedLocation) {
+        this.reportedPosition = reportedLocation;
     }
-    public ArrayList<Date> getReportedLocationTime() {
-        return reportedLocationTime;
+    public ArrayList<LocalDateTime> getReportedPositionTime() {
+        return reportedPositionTime;
     }
-    public void setReportedLocationTime(ArrayList<Date> reportedLocationTime) {
-        this.reportedLocationTime = reportedLocationTime;
+    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
+        this.reportedPositionTime = reportedPositionTime;
     }
     public String getReportObservation() {
         return reportObservation;
     }
     public void setReportObservation(String reportObservation) {
         this.reportObservation = reportObservation;
+    }
+    public void addReportedPositon(String reportedPosition) {
+        this.getReportedPosition().add(reportedPosition);
+        this.getReportedPositionTime().add(LocalDateTime.now());
+    }
+    public void addAssignedUserId(int id) {
+        this.getAssignedUserId().add(id);
     }
 }
