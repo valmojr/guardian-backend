@@ -7,4 +7,4 @@ Precise perception of the factors and conditions that affect the execution of th
 ## Software Modelling
 This works in a MVC kind project concept: Models (actors interactions), View(console printed) and Controllers (Data Acess Objects) with the following agents and data base:
 https://drive.google.com/file/d/1NlrH3ogTpDS-Gp3H7A_T7PYyu8u-PC9P/view?usp=sharing
-![UML](\Software Modelling\UML.png)
+![UML](https://github.com/valmojr/guardian-backend/blob/main/Software%20Modelling/UML.png?raw=true)
