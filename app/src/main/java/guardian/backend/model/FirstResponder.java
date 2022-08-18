@@ -1,4 +1,4 @@
-package guardian.backend.control;
+package guardian.backend.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,14 +9,13 @@ public class FirstResponder {
     private String password;
     private String email;
     private String showedName;
-    private int privilegeLevel;
+    private String description;
+    private int privilegeLeve;
     private ArrayList<String> reportedPosition = new ArrayList<String>();
-    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
+    private ArrayList<LocalDateTime> reportedPositioTime = new ArrayList<LocalDateTime>();
     private int firstResponderType;
     private boolean state;
-    private String description;
-    private ArrayList<Integer> assignedAction = new ArrayList<Integer>();
-
+    
     public int getId() {
         return id;
     }
@@ -47,11 +46,17 @@ public class FirstResponder {
     public void setShowedName(String showedName) {
         this.showedName = showedName;
     }
-    public int getPrivilegeLevel() {
-        return privilegeLevel;
+    public String getDescription() {
+        return description;
     }
-    public void setPrivilegeLevel(int privilegeLevel) {
-        this.privilegeLevel = privilegeLevel;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public int getPrivilegeLeve() {
+        return privilegeLeve;
+    }
+    public void setPrivilegeLeve(int privilegeLeve) {
+        this.privilegeLeve = privilegeLeve;
     }
     public ArrayList<String> getReportedPosition() {
         return reportedPosition;
@@ -59,11 +64,11 @@ public class FirstResponder {
     public void setReportedPosition(ArrayList<String> reportedPosition) {
         this.reportedPosition = reportedPosition;
     }
-    public ArrayList<LocalDateTime> getReportedPositionTime() {
-        return reportedPositionTime;
+    public ArrayList<LocalDateTime> getReportedPositioTime() {
+        return reportedPositioTime;
     }
-    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
-        this.reportedPositionTime = reportedPositionTime;
+    public void setReportedPositioTime(ArrayList<LocalDateTime> reportedPositioTime) {
+        this.reportedPositioTime = reportedPositioTime;
     }
     public int getFirstResponderType() {
         return firstResponderType;
@@ -71,26 +76,10 @@ public class FirstResponder {
     public void setFirstResponderType(int firstResponderType) {
         this.firstResponderType = firstResponderType;
     }
-    public boolean getState() {
+    public boolean isState() {
         return state;
     }
     public void setState(boolean state) {
         this.state = state;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public ArrayList<Integer> getAssignedAction() {
-        return assignedAction;
-    }
-    public void setAssignedAction(ArrayList<Integer> assignedAction) {
-        this.assignedAction = assignedAction;
-    }
-
-    public boolean isReady() {
-        return !this.state;
     }
 }

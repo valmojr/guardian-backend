@@ -12,6 +12,7 @@ public class ConnectionFactoryTest {
         Exception error = null;
         try {
             Connection connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            connection.createStatement();
         } catch (Exception e) {
             error = e;
         }
