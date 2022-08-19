@@ -4,7 +4,7 @@ public class Action {
     private int id;
     private String description;
     private boolean state;
-    private String designatedPosition;
+    private String designatedPosition ="";
 
     public int getId() {
         return id;
@@ -18,7 +18,7 @@ public class Action {
     public void setDescription(String description) {
         this.description = description;
     }
-    public boolean isState() {
+    public boolean isActive() {
         return state;
     }
     public void setState(boolean state) {

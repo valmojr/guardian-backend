@@ -5,22 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import guardian.backend.model.Action_Incident;
+import guardian.backend.model.Action;
 import guardian.backend.model.ConnectionFactory;
 
-public class Action_IncidentDAO {
-    public void create(Action_Incident action_Incident) {
-        String sql = "INSERT INTO action_incident(assignedActionId,assignedIncidentId) VALUES (?,?)";
+public class ActionDAO {
+    public void create(Action action) {
+        String sql = "INSERT INTO action(description,state,designatedPosition) VALUES (?,?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, action_Incident.getAssignedActionId());
-            preparedStatement.setInt(2, action_Incident.getAssignedIncidentId());
+            preparedStatement.setString(1, action.getDescription());
+            preparedStatement.setBoolean(2, action.isActive());
+            preparedStatement.setString(3, action.getDesignatedPosition());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while registering action and incident association: " + e.getMessage());
+            System.out.println("Error while registering action: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -33,10 +34,10 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    }
-    public ArrayList<Action_Incident> read() {
-        String sql = "SELECT * FROM action_incident";
-        ArrayList<Action_Incident> action_Incidents = new ArrayList<Action_Incident>();
+    };
+    public ArrayList<Action> read() {
+        String sql = "SELECT * FROM action";
+        ArrayList<Action> actions = new ArrayList<Action>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -45,14 +46,15 @@ public class Action_IncidentDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Action_Incident action_Incident = new Action_Incident();
-                action_Incident.setId(resultSet.getInt("id"));
-                action_Incident.setAssignedActionId(resultSet.getInt("assignedActionId"));
-                action_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
-                action_Incidents.add(action_Incident);
+                Action action = new Action();
+                action.setId(resultSet.getInt("id"));
+                action.setDescription(resultSet.getString("description"));
+                action.setState(resultSet.getBoolean("state"));
+                action.setDesignatedPosition(resultSet.getString("designatedPosition"));
+                actions.add(action);
             }
         } catch(Exception e) {
-            System.out.println("Error while retrieving actions and incidents associations: " + e.getMessage());
+            System.out.println("Error while retrieving actions: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -68,28 +70,29 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return action_Incidents;
-    }
-    public Action_Incident read(int id) {
-        String sql = "SELECT * FROM action_incident WHERE id = ?";
-        ArrayList<Action_Incident> action_Incidents = new ArrayList<Action_Incident>();
+        return actions;
+    };
+    public Action read(int id) {
+        String sql = "SELECT * FROM action WHERE id = ?";
+        ArrayList<Action> actions = new ArrayList<Action>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Action_Incident action_Incident = new Action_Incident();
-                action_Incident.setId(resultSet.getInt("id"));
-                action_Incident.setAssignedActionId(resultSet.getInt("assignedActionId"));
-                action_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
-                action_Incidents.add(action_Incident);
+                Action action = new Action();
+                action.setId(resultSet.getInt("id"));
+                action.setDescription(resultSet.getString("description"));
+                action.setState(resultSet.getBoolean("state"));
+                action.setDesignatedPosition(resultSet.getString("designatedPosition"));
+                actions.add(action);
             }
         } catch(Exception e) {
-            System.out.println("Error while retrieving actions and incidents associations by id: " + e.getMessage());
+            System.out.println("Error while retrieving actions: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -105,21 +108,22 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return action_Incidents.get(0);
-    }
-    public void update(Action_Incident action_Incident) {
-        String sql = "UPDATE action_incident SET assignedActionId = ?,assignedIncidentId = ? WHERE id = ?";
+        return actions.get(0);
+    };
+    public void update(Action action) {
+        String sql = "UPDATE action SET description = ?, state = ?, designatedPosition = ? WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, action_Incident.getAssignedActionId());
-            preparedStatement.setInt(2, action_Incident.getAssignedIncidentId());
-            preparedStatement.setInt(3, action_Incident.getId());
+            preparedStatement.setString(1, action.getDescription());
+            preparedStatement.setBoolean(2, action.isActive());
+            preparedStatement.setString(3, action.getDesignatedPosition());
+            preparedStatement.setInt(4, action.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Erorr while updating action and incident association: " + e.getMessage());
+            System.out.println("Erorr while updating action: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -132,9 +136,9 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    }
+    };
     public void delete(int id) {
-        String sql = "DELETE FROM action_incident WHERE id = ?";
+        String sql = "DELETE FROM action WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -156,15 +160,15 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    }
-    public void delete(Action_Incident action_Incident) {
-        String sql = "DELETE FROM action_incident WHERE id = ?";
+    };
+    public void delete(Action action) {
+        String sql = "DELETE FROM action WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, action_Incident.getId());
+            preparedStatement.setInt(1, action.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while deleting action and incident association: " + e.getMessage());
@@ -180,5 +184,5 @@ public class Action_IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    }
+    };
 }

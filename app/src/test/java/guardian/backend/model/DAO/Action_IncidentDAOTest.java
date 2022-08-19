@@ -37,6 +37,6 @@ public class Action_IncidentDAOTest {
         int beforeDelete = classUnderTest.read().size();
         classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
         int afterDelete = classUnderTest.read().size();
-        assertEquals(beforeDelete, afterDelete-1);
+        assertEquals(beforeDelete, afterDelete+1);
     }
 }

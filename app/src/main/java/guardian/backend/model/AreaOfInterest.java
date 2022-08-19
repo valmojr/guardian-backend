@@ -2,10 +2,10 @@ package guardian.backend.model;
 
 public class AreaOfInterest {
     private int id;
-    private String designatedArea;
+    private String designatedArea = "";
     private int danger;
-    private String observation;
-    
+    private String observation = "";
+
     public int getId() {
         return id;
     }
