@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class FirstResponder {
     private int id;
-    private String username;
-    private String password;
-    private String email;
-    private String showedName;
-    private String description;
-    private int privilegeLeve;
+    private String username = "";
+    private String password = "";
+    private String email = "";
+    private String showedName = "";
+    private String description = "";
+    private int privilegeLevel;
     private ArrayList<String> reportedPosition = new ArrayList<String>();
-    private ArrayList<LocalDateTime> reportedPositioTime = new ArrayList<LocalDateTime>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
     private int firstResponderType;
     private boolean state;
     
@@ -52,11 +52,11 @@ public class FirstResponder {
     public void setDescription(String description) {
         this.description = description;
     }
-    public int getPrivilegeLeve() {
-        return privilegeLeve;
+    public int getPrivilegeLevel() {
+        return privilegeLevel;
     }
-    public void setPrivilegeLeve(int privilegeLeve) {
-        this.privilegeLeve = privilegeLeve;
+    public void setPrivilegeLevel(int privilegeLevel) {
+        this.privilegeLevel = privilegeLevel;
     }
     public ArrayList<String> getReportedPosition() {
         return reportedPosition;
@@ -64,11 +64,11 @@ public class FirstResponder {
     public void setReportedPosition(ArrayList<String> reportedPosition) {
         this.reportedPosition = reportedPosition;
     }
-    public ArrayList<LocalDateTime> getReportedPositioTime() {
-        return reportedPositioTime;
+    public ArrayList<LocalDateTime> getReportedPositionTime() {
+        return reportedPositionTime;
     }
-    public void setReportedPositioTime(ArrayList<LocalDateTime> reportedPositioTime) {
-        this.reportedPositioTime = reportedPositioTime;
+    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
+        this.reportedPositionTime = reportedPositionTime;
     }
     public int getFirstResponderType() {
         return firstResponderType;
@@ -76,10 +76,17 @@ public class FirstResponder {
     public void setFirstResponderType(int firstResponderType) {
         this.firstResponderType = firstResponderType;
     }
-    public boolean isState() {
+    public boolean isReady() {
         return state;
     }
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public String getCurrentLocation() {
+        return this.getReportedPosition().get(getReportedPosition().size()-1);
+    }
+    public LocalDateTime getCurrentLocationTime() {
+        return this.getReportedPositionTime().get(getReportedPosition().size()-1);
     }
 }

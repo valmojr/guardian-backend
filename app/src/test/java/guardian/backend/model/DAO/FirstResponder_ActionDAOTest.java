@@ -35,8 +35,6 @@ public class FirstResponder_ActionDAOTest {
     @Test
     public void canDeleteInformation() {
         FirstResponder_ActionDAO classUnderTest = new FirstResponder_ActionDAO();
-        FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
-        firstResponder_Action.setAssignedFirstResponderId(155);
         int beforeCreate = classUnderTest.read().size();
         classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1));
         int afterCreate = classUnderTest.read().size();

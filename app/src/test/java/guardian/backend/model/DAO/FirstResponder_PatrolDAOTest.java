@@ -1,7 +1,6 @@
 package guardian.backend.model.DAO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 import guardian.backend.model.FirstResponder_Patrol;
@@ -35,8 +34,6 @@ public class FirstResponder_PatrolDAOTest {
     @Test
     public void canDeleteInformation() {
         FirstResponder_PatrolDAO classUnderTest = new FirstResponder_PatrolDAO();
-        FirstResponder_Patrol firstResponder_Patrol = new FirstResponder_Patrol();
-        firstResponder_Patrol.setAssignedFirstResponderId(155);
         int beforeCreate = classUnderTest.read().size();
         classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1));
         int afterCreate = classUnderTest.read().size();
