@@ -5,23 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import guardian.backend.model.AreaOfInterest;
 import guardian.backend.model.ConnectionFactory;
+import guardian.backend.model.FirstResponder_Action;
 
-public class AreaOfInterestDAO {
-    public void create(AreaOfInterest areaOfInterest) {
-        String sql = "INSERT INTO AreaOfInterest(designatedArea,danger,observation) VALUES (?,?,?)";
+public class FirstResponder_ActionDAO {
+    public void create(FirstResponder_Action firstResponder_Action) {
+        String sql = "INSERT INTO firstResponder_action(assignedFirstResponderId,assignedActionId) VALUES (?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, areaOfInterest.getDesignatedArea());
-            preparedStatement.setInt(2, areaOfInterest.getId());
-            preparedStatement.setString(3, areaOfInterest.getObservation());
+            preparedStatement.setInt(1,firstResponder_Action.getAssignedFirstResponderId());
+            preparedStatement.setInt(2,firstResponder_Action.getAssignedActionId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while registering action and incident association: " + e.getMessage());
+            System.out.println("Error while registering first responders and actions association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -34,10 +33,10 @@ public class AreaOfInterestDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    };
-    public ArrayList<AreaOfInterest> read() {
-        String sql = "SELECT * FROM AreaOfInterest";
-        ArrayList<AreaOfInterest> areaOfInterests = new ArrayList<AreaOfInterest>();
+    }
+    public ArrayList<FirstResponder_Action> read() {
+        String sql = "SELECT * FROM FirstResponder_Action";
+        ArrayList<FirstResponder_Action> firstResponder_Actions = new ArrayList<FirstResponder_Action>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -46,50 +45,14 @@ public class AreaOfInterestDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                AreaOfInterest areaOfInterest = new AreaOfInterest();
-                areaOfInterest.setId(resultSet.getInt("id"));
-                areaOfInterest.setDesignatedArea(resultSet.getString("designatedArea"));
-                areaOfInterest.setDanger(resultSet.getInt("danger"));
-                areaOfInterest.setObservation(resultSet.getString("observation"));
-                areaOfInterests.add(areaOfInterest);
+                FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
+                firstResponder_Action.setId(resultSet.getInt("id"));
+                firstResponder_Action.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                firstResponder_Actions.add(firstResponder_Action);
             }
         } catch (Exception e) {
-            System.out.println("Error while registering area of interest: " + e.getMessage());
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.println("Error while closing the connection: " + e.getMessage());
-            }
-        }
-        return areaOfInterests;
-    };
-    public AreaOfInterest read(int id) {
-        String sql = "SELECT * FROM AreaOfInterest WHERE id = ?";
-        ArrayList<AreaOfInterest> areaOfInterests = new ArrayList<AreaOfInterest>();
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = ConnectionFactory.createConnectionToMySQLDatabase();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                AreaOfInterest areaOfInterest = new AreaOfInterest();
-                areaOfInterest.setId(resultSet.getInt("id"));
-                areaOfInterest.setDesignatedArea(resultSet.getString("designatedArea"));
-                areaOfInterest.setDanger(resultSet.getInt("danger"));
-                areaOfInterest.setObservation(resultSet.getString("observation"));
-                areaOfInterests.add(areaOfInterest);
-            }
-        } catch (Exception e) {
-            System.out.println("Error while registering area of interest: " + e.getMessage());
+            System.out.println("Error while registering first responders and action association: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -105,22 +68,58 @@ public class AreaOfInterestDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return areaOfInterests.get(0);
+        return firstResponder_Actions;
+    };
+    public FirstResponder_Action read(int id) {
+        String sql = "SELECT * FROM FirstResponder_Action WHERE id = ?";
+        ArrayList<FirstResponder_Action> firstResponder_Actions = new ArrayList<FirstResponder_Action>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
+                firstResponder_Action.setId(resultSet.getInt("id"));
+                firstResponder_Action.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                firstResponder_Actions.add(firstResponder_Action);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while registering first responders and action association: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return firstResponder_Actions.get(0);
     }
-    public void update(AreaOfInterest areaOfInterest) {
-        String sql = "UPDATE AreaOfInterest SET designatedArea = ?, danger = ?, observation = ? WHERE id = ?";
+    public void update(FirstResponder_Action firstResponder_Action) {
+        String sql = "UPDATE FirstResponder_Action SET assignedFirstResponderId = ?, assignedActionId = ? WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, areaOfInterest.getDesignatedArea());
-            preparedStatement.setInt(2, areaOfInterest.getDanger());
-            preparedStatement.setString(3, areaOfInterest.getObservation());
-            preparedStatement.setInt(4, areaOfInterest.getId());
+            preparedStatement.setInt(1, firstResponder_Action.getAssignedFirstResponderId());
+            preparedStatement.setInt(2, firstResponder_Action.getAssignedActionId());
+            preparedStatement.setInt(3, firstResponder_Action.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Erorr while updating area of interest: " + e.getMessage());
+            System.out.println("Error while updating first responders and action association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -133,9 +132,9 @@ public class AreaOfInterestDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    };
+    }
     public void delete(int id) {
-        String sql = "DELETE FROM AreaOfInterest WHERE id = ?";
+        String sql = "DELETE FROM FirstResponder_Action WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -144,7 +143,7 @@ public class AreaOfInterestDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting action and incident association: " + e.getMessage());
+            System.out.println("Error while deleting first responders and action association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -158,17 +157,17 @@ public class AreaOfInterestDAO {
             }
         }
     };
-    public void delete(AreaOfInterest areaOfInterest) {
-        String sql = "DELETE FROM AreaOfInterest WHERE id = ?";
+    public void delete(FirstResponder_Action firstResponder_Action) {
+        String sql = "DELETE FROM FirstResponder_Action WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, areaOfInterest.getId());
+            preparedStatement.setInt(1, firstResponder_Action.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting action and incident association: " + e.getMessage());
+            System.out.println("Error while deleting first responders and action association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
