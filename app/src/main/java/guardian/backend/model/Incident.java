@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Incident {
     private int id;
-    private ArrayList<String> reportedPosition;
-    private ArrayList<LocalDateTime> reportedPositionTime;
+    private ArrayList<String> reportedPosition = new ArrayList<String>();
+    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
     private int danger;
     private int state;
     private String description;
