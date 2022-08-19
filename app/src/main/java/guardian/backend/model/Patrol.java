@@ -2,9 +2,9 @@ package guardian.backend.model;
 
 public class Patrol {
     private int id;
-    private String specificArea;
+    private String specificArea = "";
     private int state;
-    private String Observation;
+    private String observation;
     
     public int getId() {
         return id;
@@ -25,9 +25,9 @@ public class Patrol {
         this.state = state;
     }
     public String getObservation() {
-        return Observation;
+        return observation;
     }
     public void setObservation(String observation) {
-        Observation = observation;
+        this.observation = observation;
     }
 }
