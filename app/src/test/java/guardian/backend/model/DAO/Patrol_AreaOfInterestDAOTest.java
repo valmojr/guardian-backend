@@ -40,4 +40,3 @@ public class Patrol_AreaOfInterestDAOTest {
         assertEquals(beforeDelete, afterDelete+1);
     }
 }
-
