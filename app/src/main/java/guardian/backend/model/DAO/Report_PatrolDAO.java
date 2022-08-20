@@ -6,22 +6,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import guardian.backend.model.ConnectionFactory;
-import guardian.backend.model.Patrol;
+import guardian.backend.model.Report_Patrol;
 
-public class PatrolDAO {
-    public void create(Patrol patrol) {
-        String sql = "INSERT INTO patrol(specificArea,state,observation) VALUES (?,?,?)";
+public class Report_PatrolDAO {
+    public void create(Report_Patrol Report_Patrol) {
+        String sql = "INSERT INTO Report_Patrol(assignedReportId,assignedPatrolId) VALUES (?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, patrol.getSpecificArea());
-            preparedStatement.setInt(2, patrol.getState());
-            preparedStatement.setString(3, patrol.getObservation());
+            preparedStatement.setInt(1, Report_Patrol.getAssignedReportId());
+            preparedStatement.setInt(2, Report_Patrol.getAssignedPatrolId());
             preparedStatement.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error while registering reports and patrols association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -35,9 +34,9 @@ public class PatrolDAO {
             }
         }
     };
-    public ArrayList<Patrol> read() {
-        String sql = "SELECT * FROM Patrol";
-        ArrayList<Patrol> patrols = new ArrayList<Patrol>();
+    public ArrayList<Report_Patrol> read() {
+        String sql = "SELECT * FROM Report_Patrol";
+        ArrayList<Report_Patrol> Report_Patrols = new ArrayList<Report_Patrol>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -46,15 +45,14 @@ public class PatrolDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Patrol patrol = new Patrol();
-                patrol.setId(resultSet.getInt("id"));
-                patrol.setSpecificArea(resultSet.getString("specificArea"));
-                patrol.setState(resultSet.getInt("state"));
-                patrol.setObservation(resultSet.getString("observation"));
-                patrols.add(patrol);
+                Report_Patrol Report_Patrol = new Report_Patrol();
+                Report_Patrol.setId(resultSet.getInt("id"));
+                Report_Patrol.setAssignedReportId(resultSet.getInt("assignedReportId"));
+                Report_Patrol.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                Report_Patrols.add(Report_Patrol);
             }
         } catch(Exception e) {
-            System.out.println("Error while retrieving patrols: " + e.getMessage());
+            System.out.println("Error while retrieving reports and patrols associations: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -70,11 +68,11 @@ public class PatrolDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return patrols;
+        return Report_Patrols;
     };
-    public Patrol read(int id) {
-        String sql = "SELECT * FROM Patrol WHERE id = ?";
-        ArrayList<Patrol> patrols = new ArrayList<Patrol>();
+    public Report_Patrol read(int id) {
+        String sql = "SELECT * FROM Report_Patrol WHERE id = ?";
+        ArrayList<Report_Patrol> Report_Patrols = new ArrayList<Report_Patrol>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -84,14 +82,14 @@ public class PatrolDAO {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Patrol patrol = new Patrol();
-                patrol.setId(resultSet.getInt("id"));
-                patrol.setSpecificArea(resultSet.getString("specificArea"));
-                patrol.setObservation(resultSet.getString("observation"));
-                patrols.add(patrol);
+                Report_Patrol Report_Patrol = new Report_Patrol();
+                Report_Patrol.setId(resultSet.getInt("id"));
+                Report_Patrol.setAssignedReportId(resultSet.getInt("assignedReportId"));
+                Report_Patrol.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                Report_Patrols.add(Report_Patrol);
             }
         } catch(Exception e) {
-            System.out.println("Error while retrieving patrol: " + e.getMessage());
+            System.out.println("Error while retrieving reports and patrols associations: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -107,22 +105,21 @@ public class PatrolDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return patrols.get(0);
+        return Report_Patrols.get(0);
     };
-    public void update(Patrol patrol) {
-        String sql = "UPDATE Patrol SET specificArea = ?,state = ?,observation = ? WHERE id = ?";
+    public void update(Report_Patrol Report_Patrol) {
+        String sql = "UPDATE Report_Patrol SET assignedReportId = ?,assignedPatrolId = ? WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, patrol.getSpecificArea());
-            preparedStatement.setInt(2, patrol.getState());
-            preparedStatement.setString(3, patrol.getObservation());
-            preparedStatement.setInt(4, patrol.getId());
+            preparedStatement.setInt(1, Report_Patrol.getAssignedReportId());
+            preparedStatement.setInt(2, Report_Patrol.getAssignedPatrolId());
+            preparedStatement.setInt(3, Report_Patrol.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Erorr while updating patrols and areas of interest association: " + e.getMessage());
+            System.out.println("Erorr while updating reports and patrols association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -137,7 +134,7 @@ public class PatrolDAO {
         }
     };
     public void delete(int id) {
-        String sql = "DELETE FROM Patrol WHERE id = ?";
+        String sql = "DELETE FROM Report_Patrol WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -146,7 +143,7 @@ public class PatrolDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting patrols and areas of interest association: " + e.getMessage());
+            System.out.println("Error while deleting reports and patrols association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -160,17 +157,17 @@ public class PatrolDAO {
             }
         }
     };
-    public void delete(Patrol patrol) {
-        String sql = "DELETE FROM Patrol WHERE id = ?";
+    public void delete(Report_Patrol Report_Patrol) {
+        String sql = "DELETE FROM Report_Patrol WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, patrol.getId());
+            preparedStatement.setInt(1, Report_Patrol.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting patrols: " + e.getMessage());
+            System.out.println("Error while deleting reports and patrols association: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -183,5 +180,5 @@ public class PatrolDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-    };
+    }
 }

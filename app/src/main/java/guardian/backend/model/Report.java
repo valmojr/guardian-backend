@@ -2,8 +2,8 @@ package guardian.backend.model;
 
 public class Report {
     private int id;
-    private String reportDescription;
-    private String reportObservation;
+    private String reportDescription = "";
+    private String reportObservation = "";
     
     public int getId() {
         return id;
