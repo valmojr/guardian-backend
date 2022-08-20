@@ -10,19 +10,6 @@ import guardian.backend.model.ConnectionFactory;
 import guardian.backend.model.FirstResponder;
 
 public class FirstResponderDAO {
-    /*
-    private int id;
-    private String username;
-    private String password;
-    private String email;
-    private String showedName;
-    private String description;
-    private int privilegeLevel;
-    private ArrayList<String> reportedPosition = new ArrayList<String>();
-    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
-    private int firstResponderType;
-    private boolean state;
-    */
     public void create(FirstResponder firstResponder) {
         String sql = "INSERT INTO firstResponder(username,password,email,showedName,description,privilegeLevel,reportedPosition,reportedPositionTime,firstResponderType,state) VALUES (?,?,?,?,?,?,?,?,?,?)";
         Connection connection = null;
@@ -226,5 +213,14 @@ public class FirstResponderDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
+    };
+    public FirstResponder getFirstResponderByUsernameOrEmail(String test) {
+        FirstResponder firstResponder = null;
+        for (int i = 0; i < this.read().size(); i++) {
+            if (this.read().get(i).getUsername() == test || this.read().get(i).getEmail() == test) {
+                firstResponder = this.read().get(i);
+            }
+        }
+        return firstResponder;
     };
 }
