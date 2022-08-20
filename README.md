@@ -13,5 +13,24 @@ This works in a MVC kind project concept: Models (actors interactions), View(con
 ![UML](https://github.com/valmojr/guardian-backend/blob/main/Software%20Modelling/UML.png?raw=true)
 https://drive.google.com/file/d/1NlrH3ogTpDS-Gp3H7A_T7PYyu8u-PC9P/view?usp=sharing
 
-## Database Modelling
-MySQL Databse with the folling structure:
+#### First Responder Types
+- 1: Police Trooper
+- 2: Firefighter
+- 3: Life Saver
+
+#### First Responder Privilege Levels
+1. Level 1 - Trooper
+- Receive Acts and Patrols orders.
+- See current incidents and Areas Of Interest in 10 km.
+- Register Incidents.
+- Register After-Action reports.
+2. Level 2 - Comms Operator
+- Giver Patrol and Action orders to level 1 FRs
+- See all incidents and areas of interest.
+- Register Level 1 FRs.
+- See order-givened reports.
+- Ask for Area of Interest
+3. Level 3 - Administrator
+- Promote Level 1 to Level 2.
+- See all reports
+- Confirm Area of Interest

@@ -13,4 +13,8 @@ public class Authenticator{
             return false;
         }
     }
+    public String encryptate(String password) {
+        String encryptedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+        return encryptedPassword;
+    }
 }
