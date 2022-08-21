@@ -214,10 +214,10 @@ public class FirstResponderDAO {
             }
         }
     };
-    public FirstResponder getFirstResponderByUsernameOrEmail(String test) {
-        FirstResponder firstResponder = null;
+    public FirstResponder getFirstResponderByUsername(String username) {
+        FirstResponder firstResponder = new FirstResponder();
         for (int i = 0; i < this.read().size(); i++) {
-            if (this.read().get(i).getUsername() == test || this.read().get(i).getEmail() == test) {
+            if (username.equals(this.read().get(i).getUsername())) {
                 firstResponder = this.read().get(i);
             }
         }
