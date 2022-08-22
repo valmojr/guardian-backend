@@ -1,4 +1,4 @@
-package guardian.backend.model;
+package com.valmojr.guardian.model;
 
 public class Action {
     private int id;

@@ -1,4 +1,4 @@
-package com.valmojr.guardian;
+package com.valmojr.guardian.control;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
