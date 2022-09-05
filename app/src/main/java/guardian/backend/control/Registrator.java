@@ -1,7 +1,6 @@
 package guardian.backend.control;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import guardian.backend.model.AreaOfInterest;
