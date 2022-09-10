@@ -26,6 +26,10 @@ public class Registrator {
         firstResponder.setFirstResponderType(firstResponderType);
         new FirstResponderDAO().create(firstResponder);
     }
+    public void registerTrooper(FirstResponder firstResponder) {
+        firstResponder.setPrivilegeLevel(1);
+        new FirstResponderDAO().create(firstResponder);
+    }
     public void registerCommsOperator(String username, String password, String email, String showedName, String description, int firstResponderType) {
         FirstResponder firstResponder = new FirstResponder();
         firstResponder.setUsername(username);
