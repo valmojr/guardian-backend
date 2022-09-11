@@ -111,6 +111,44 @@ public class Position_IncidentDAO {
         }
         return position_Incidents.get(0);
     };
+    public ArrayList<Position_Incident> readByIncidentId(int incidentId) {
+        ArrayList<Position_Incident> position_Incidents = new ArrayList<Position_Incident>();
+        String sql = "SELECT * FROM position_Incidents WHERE assignedIncidentId = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, incidentId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Position_Incident position_Incident = new Position_Incident();
+                position_Incident.setId(resultSet.getInt("id"));
+                position_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
+                position_Incident.setReportedPosition(resultSet.getString("reportedPosition"));
+                position_Incident.setReportedTime(resultSet.getTimestamp("reportedTime").toLocalDateTime());
+                position_Incidents.add(position_Incident);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while getting position and incident relation by id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return position_Incidents;
+    };
     public void update(Position_Incident position_Incident) {
         String sql = "UPDATE position_Incident SET assignedIncidentId = ?, reportedPosition = ?, reportedTime = ? WHERE id = ?";
         Connection connection = null;

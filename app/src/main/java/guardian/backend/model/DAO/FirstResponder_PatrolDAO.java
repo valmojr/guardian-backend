@@ -107,6 +107,80 @@ public class FirstResponder_PatrolDAO {
         }
         return firstResponder_Patrols.get(0);
     };
+    public ArrayList<FirstResponder_Patrol> readByFirstResponderId(int firstResponderId) {
+        String sql = "SELECT * FROM FirstResponder_Patrol WHERE assignedFirstResponderId = ?";
+        ArrayList<FirstResponder_Patrol> firstResponder_Patrols = new ArrayList<FirstResponder_Patrol>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, firstResponderId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                FirstResponder_Patrol firstResponder_Patrol = new FirstResponder_Patrol();
+                firstResponder_Patrol.setId(resultSet.getInt("id"));
+                firstResponder_Patrol.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Patrol.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                firstResponder_Patrols.add(firstResponder_Patrol);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while registering first responders and patrol association: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return firstResponder_Patrols;
+    };
+    public ArrayList<FirstResponder_Patrol> readByPatrolId(int patrolId) {
+        String sql = "SELECT * FROM FirstResponder_Patrol WHERE assignedPatrolId = ?";
+        ArrayList<FirstResponder_Patrol> firstResponder_Patrols = new ArrayList<FirstResponder_Patrol>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, patrolId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                FirstResponder_Patrol firstResponder_Patrol = new FirstResponder_Patrol();
+                firstResponder_Patrol.setId(resultSet.getInt("id"));
+                firstResponder_Patrol.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Patrol.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                firstResponder_Patrols.add(firstResponder_Patrol);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while registering first responders and patrol association: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return firstResponder_Patrols;
+    };
     public void update(FirstResponder_Patrol firstResponder_Patrol) {
         String sql = "UPDATE FirstResponder_Patrol SET assignedFirstResponderId = ?, assignedPatrolId = ? WHERE id = ?";
         Connection connection = null;

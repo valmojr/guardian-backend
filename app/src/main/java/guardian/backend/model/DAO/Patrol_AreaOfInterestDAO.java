@@ -107,6 +107,80 @@ public class Patrol_AreaOfInterestDAO {
         }
         return patrol_AreaOfInterests.get(0);
     };
+    public ArrayList<Patrol_AreaOfInterest> readByPatrolId(int patrolId) {
+        String sql = "SELECT * FROM Patrol_AreaOfInterest WHERE assignedPatrolId = ?";
+        ArrayList<Patrol_AreaOfInterest> patrol_AreaOfInterests = new ArrayList<Patrol_AreaOfInterest>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, patrolId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Patrol_AreaOfInterest patrol_AreaOfInterest = new Patrol_AreaOfInterest();
+                patrol_AreaOfInterest.setId(resultSet.getInt("id"));
+                patrol_AreaOfInterest.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                patrol_AreaOfInterest.setAssignedAreaOfInterestId(resultSet.getInt("assignedAreaOfInterestId"));
+                patrol_AreaOfInterests.add(patrol_AreaOfInterest);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving patrols and areas of interest associations by Patrol Id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return patrol_AreaOfInterests;
+    };
+    public ArrayList<Patrol_AreaOfInterest> readByAreaOfInterestId(int areaOfInterestId) {
+        String sql = "SELECT * FROM Patrol_AreaOfInterest WHERE assignedAreaOfInterestId = ?";
+        ArrayList<Patrol_AreaOfInterest> patrol_AreaOfInterests = new ArrayList<Patrol_AreaOfInterest>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, areaOfInterestId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Patrol_AreaOfInterest patrol_AreaOfInterest = new Patrol_AreaOfInterest();
+                patrol_AreaOfInterest.setId(resultSet.getInt("id"));
+                patrol_AreaOfInterest.setAssignedPatrolId(resultSet.getInt("assignedPatrolId"));
+                patrol_AreaOfInterest.setAssignedAreaOfInterestId(resultSet.getInt("assignedAreaOfInterestId"));
+                patrol_AreaOfInterests.add(patrol_AreaOfInterest);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving patrols and areas of interest associations by Area of Interest Id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return patrol_AreaOfInterests;
+    };
     public void update(Patrol_AreaOfInterest patrol_AreaOfInterest) {
         String sql = "UPDATE Patrol_AreaOfInterest SET assignedPatrolId = ?,assignedAreaOfInterestId = ? WHERE id = ?";
         Connection connection = null;

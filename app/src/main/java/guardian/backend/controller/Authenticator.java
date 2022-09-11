@@ -1,4 +1,4 @@
-package guardian.backend.control;
+package guardian.backend.controller;
 
 import java.nio.charset.StandardCharsets;
 import com.google.common.hash.Hashing;

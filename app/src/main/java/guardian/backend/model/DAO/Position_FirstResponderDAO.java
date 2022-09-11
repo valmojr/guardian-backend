@@ -89,7 +89,7 @@ public class Position_FirstResponderDAO {
                 position_FirstResponder.setId(resultSet.getInt("id"));
                 position_FirstResponder.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
                 position_FirstResponder.setReportedPosition(resultSet.getString("reportedPosition"));
-                position_FirstResponder.setReportedTime(resultSet.getTimestamp("reportedPosition").toLocalDateTime());
+                position_FirstResponder.setReportedTime(resultSet.getTimestamp("reportedTime").toLocalDateTime());
                 position_FirstResponders.add(position_FirstResponder);
             }
         } catch (Exception e) {
@@ -110,6 +110,44 @@ public class Position_FirstResponderDAO {
             }
         }
         return position_FirstResponders.get(0);
+    };
+    public ArrayList<Position_FirstResponder> readByFirstResponderId(int firstResponderId) {
+        ArrayList<Position_FirstResponder> position_FirstResponders = new ArrayList<Position_FirstResponder>();
+        String sql = "SELECT * FROM position_FirstResponders WHERE assignedFirstResponderId = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, firstResponderId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Position_FirstResponder position_FirstResponder = new Position_FirstResponder();
+                position_FirstResponder.setId(resultSet.getInt("id"));
+                position_FirstResponder.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                position_FirstResponder.setReportedPosition(resultSet.getString("reportedPosition"));
+                position_FirstResponder.setReportedTime(resultSet.getTimestamp("reportedTime").toLocalDateTime());
+                position_FirstResponders.add(position_FirstResponder);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while getting position and first responder relation by id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return position_FirstResponders;
     };
     public void update(Position_FirstResponder position_FirstResponder) {
         String sql = "UPDATE position_FirstResponder SET assignedFirstResponderId = ?, reportedPosition = ?, reportedTime = ? WHERE id = ?";

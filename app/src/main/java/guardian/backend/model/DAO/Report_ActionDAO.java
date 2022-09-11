@@ -85,7 +85,7 @@ public class Report_ActionDAO {
                 Report_Action report_Action = new Report_Action();
                 report_Action.setId(resultSet.getInt("id"));
                 report_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
-                report_Action.setAssignedReportId(resultSet.getInt("assignedAreaOfInterestId"));
+                report_Action.setAssignedReportId(resultSet.getInt("assignedReportId"));
                 report_Actions.add(report_Action);
             }
         } catch(Exception e) {
@@ -106,6 +106,80 @@ public class Report_ActionDAO {
             }
         }
         return report_Actions.get(0);
+    };
+    public ArrayList<Report_Action> readByReportId(int reportId) {
+        String sql = "SELECT * FROM Report_Action WHERE assignedReportId = ?";
+        ArrayList<Report_Action> report_Actions = new ArrayList<Report_Action>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, reportId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Report_Action report_Action = new Report_Action();
+                report_Action.setId(resultSet.getInt("id"));
+                report_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                report_Action.setAssignedReportId(resultSet.getInt("assignedReportId"));
+                report_Actions.add(report_Action);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving reports and actions of interest associations by Report id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return report_Actions;
+    };
+    public ArrayList<Report_Action> readByActionId(int actionId) {
+        String sql = "SELECT * FROM Report_Action WHERE assignedActionId = ?";
+        ArrayList<Report_Action> report_Actions = new ArrayList<Report_Action>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, actionId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Report_Action report_Action = new Report_Action();
+                report_Action.setId(resultSet.getInt("id"));
+                report_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                report_Action.setAssignedReportId(resultSet.getInt("assignedReportId"));
+                report_Actions.add(report_Action);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving reports and actions of interest associations by Action Id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return report_Actions;
     };
     public void update(Report_Action report_Action) {
         String sql = "UPDATE Report_Action SET assignedReportId = ?,assignedActionId = ? WHERE id = ?";

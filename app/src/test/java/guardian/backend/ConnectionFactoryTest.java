@@ -1,10 +1,12 @@
-package guardian.backend.model;
+package guardian.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Connection;
 
 import org.junit.jupiter.api.Test;
+
+import guardian.backend.model.ConnectionFactory;
 
 public class ConnectionFactoryTest {
     @Test

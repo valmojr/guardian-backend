@@ -1,4 +1,4 @@
-package guardian.backend.control;
+package guardian.backend.controller;
 
 import guardian.backend.model.AreaOfInterest;
 import guardian.backend.model.FirstResponder;

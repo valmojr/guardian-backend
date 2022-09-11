@@ -1,3 +1,6 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "projectManager.git.baseFolders": [
+        "C:\\Users\\taian\\OneDrive\\Documentos\\coisasqueovalmovaideixaraqui\\guardian-backend"
+    ]
 }

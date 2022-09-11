@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import guardian.backend.control.Authenticator;
+import guardian.backend.controller.Authenticator;
 import guardian.backend.model.ConnectionFactory;
 import guardian.backend.model.FirstResponder;
 
