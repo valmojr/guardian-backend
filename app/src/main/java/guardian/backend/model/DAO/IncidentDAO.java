@@ -10,7 +10,7 @@ import guardian.backend.model.Incident;
 
 public class IncidentDAO {
     public void create(Incident incident) {
-        String sql = "INSERT INTO incident(lastReportedId,danger,state,description) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO incident(lastPositionId,danger,state,description) VALUES (?,?,?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {

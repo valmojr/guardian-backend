@@ -107,6 +107,80 @@ public class Action_IncidentDAO {
         }
         return action_Incidents.get(0);
     }
+    public ArrayList<Action_Incident> readByActionId(int actionId) {
+        String sql = "SELECT * FROM action_incident WHERE assignedActionId = ?";
+        ArrayList<Action_Incident> action_Incidents = new ArrayList<Action_Incident>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, actionId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Action_Incident action_Incident = new Action_Incident();
+                action_Incident.setId(resultSet.getInt("id"));
+                action_Incident.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                action_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
+                action_Incidents.add(action_Incident);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving actions and incidents associations by action id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return action_Incidents;
+    }
+    public ArrayList<Action_Incident> readByIncidentId(int incidentId) {
+        String sql = "SELECT * FROM action_incident WHERE assignedIncidentId = ?";
+        ArrayList<Action_Incident> action_Incidents = new ArrayList<Action_Incident>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, incidentId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Action_Incident action_Incident = new Action_Incident();
+                action_Incident.setId(resultSet.getInt("id"));
+                action_Incident.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                action_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
+                action_Incidents.add(action_Incident);
+            }
+        } catch(Exception e) {
+            System.out.println("Error while retrieving actions and incidents associations by incident id: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return action_Incidents;
+    }
     public void update(Action_Incident action_Incident) {
         String sql = "UPDATE action_incident SET assignedActionId = ?,assignedIncidentId = ? WHERE id = ?";
         Connection connection = null;

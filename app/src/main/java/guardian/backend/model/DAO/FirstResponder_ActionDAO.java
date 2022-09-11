@@ -70,6 +70,80 @@ public class FirstResponder_ActionDAO {
         }
         return firstResponder_Actions;
     };
+    public ArrayList<FirstResponder_Action> readByFirstResponderId(int firstResponderId) {
+        String sql = "SELECT * FROM FirstResponder_Action WHERE assignedFirstResponderId = ?";
+        ArrayList<FirstResponder_Action> firstResponder_Actions = new ArrayList<FirstResponder_Action>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, firstResponderId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
+                firstResponder_Action.setId(resultSet.getInt("id"));
+                firstResponder_Action.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                firstResponder_Actions.add(firstResponder_Action);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while registering first responders and action association: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return firstResponder_Actions;
+    };
+    public ArrayList<FirstResponder_Action> readByActionId(int actionId) {
+        String sql = "SELECT * FROM FirstResponder_Action WHERE assignedActionId = ?";
+        ArrayList<FirstResponder_Action> firstResponder_Actions = new ArrayList<FirstResponder_Action>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.createConnectionToMySQLDatabase();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, actionId);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
+                firstResponder_Action.setId(resultSet.getInt("id"));
+                firstResponder_Action.setAssignedFirstResponderId(resultSet.getInt("assignedFirstResponderId"));
+                firstResponder_Action.setAssignedActionId(resultSet.getInt("assignedActionId"));
+                firstResponder_Actions.add(firstResponder_Action);
+            }
+        } catch (Exception e) {
+            System.out.println("Error while registering first responders and action association: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Error while closing the connection: " + e.getMessage());
+            }
+        }
+        return firstResponder_Actions;
+    };
     public FirstResponder_Action read(int id) {
         String sql = "SELECT * FROM FirstResponder_Action WHERE id = ?";
         ArrayList<FirstResponder_Action> firstResponder_Actions = new ArrayList<FirstResponder_Action>();

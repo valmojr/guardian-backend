@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import guardian.backend.control.Authenticator;
 import guardian.backend.model.ConnectionFactory;
 import guardian.backend.model.FirstResponder;
 
@@ -23,8 +24,8 @@ public class FirstResponderDAO {
             preparedStatement.setString(5, firstResponder.getDescription());
             preparedStatement.setInt(6, firstResponder.getPrivilegeLevel());
             preparedStatement.setInt(7, firstResponder.getLastPositionId());
-            preparedStatement.setInt(9, firstResponder.getFirstResponderType());
-            preparedStatement.setBoolean(10, firstResponder.isReady());
+            preparedStatement.setInt(8, firstResponder.getFirstResponderType());
+            preparedStatement.setBoolean(9, firstResponder.isReady());
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while registering first responder: " + e.getMessage());
@@ -136,7 +137,7 @@ public class FirstResponderDAO {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, firstResponder.getUsername());
-            preparedStatement.setString(2, firstResponder.getPassword());
+            preparedStatement.setString(2, new Authenticator().encryptate(firstResponder.getPassword()));
             preparedStatement.setString(3, firstResponder.getEmail());
             preparedStatement.setString(4, firstResponder.getShowedName());
             preparedStatement.setString(5, firstResponder.getDescription());
