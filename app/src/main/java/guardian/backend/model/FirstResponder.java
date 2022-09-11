@@ -1,8 +1,5 @@
 package guardian.backend.model;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 public class FirstResponder {
     private int id;
     private String username = "";
@@ -11,8 +8,7 @@ public class FirstResponder {
     private String showedName = "";
     private String description = "";
     private int privilegeLevel;
-    private ArrayList<String> reportedPosition = new ArrayList<String>();
-    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
+    private int lastPositionId;
     private int firstResponderType;
     private boolean state;
     
@@ -58,17 +54,11 @@ public class FirstResponder {
     public void setPrivilegeLevel(int privilegeLevel) {
         this.privilegeLevel = privilegeLevel;
     }
-    public ArrayList<String> getReportedPosition() {
-        return reportedPosition;
+    public int getLastPositionId() {
+        return lastPositionId;
     }
-    public void setReportedPosition(ArrayList<String> reportedPosition) {
-        this.reportedPosition = reportedPosition;
-    }
-    public ArrayList<LocalDateTime> getReportedPositionTime() {
-        return reportedPositionTime;
-    }
-    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
-        this.reportedPositionTime = reportedPositionTime;
+    public void setLastPositionId(int reportedPosition) {
+        this.lastPositionId = reportedPosition;
     }
     public int getFirstResponderType() {
         return firstResponderType;
@@ -81,12 +71,5 @@ public class FirstResponder {
     }
     public void setState(boolean state) {
         this.state = state;
-    }
-
-    public String getCurrentLocation() {
-        return this.getReportedPosition().get(getReportedPosition().size()-1);
-    }
-    public LocalDateTime getCurrentLocationTime() {
-        return this.getReportedPositionTime().get(getReportedPosition().size()-1);
     }
 }

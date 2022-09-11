@@ -3,23 +3,23 @@ package guardian.backend.model.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import guardian.backend.model.ConnectionFactory;
-import guardian.backend.model.Incident;
+import guardian.backend.model.Position_Incident;
 
-public class IncidentDAO {
-    public void create(Incident incident) {
-        String sql = "INSERT INTO incident(lastReportedId,danger,state,description) VALUES (?,?,?,?,?)";
+public class Position_IncidentDAO {
+    public void create(Position_Incident position_Incident) {
+        String sql = "INSERT INTO position_Incident(assignedIncidentId, reportedPosition,reportedTime) VALUES (?,?,?)";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, incident.getLastPositionId());
-            preparedStatement.setInt(2, incident.getDanger());
-            preparedStatement.setInt(3, incident.getState());
-            preparedStatement.setString(4, incident.getDescription());
+            preparedStatement.setInt(1, position_Incident.getAssignedIncidentId());
+            preparedStatement.setString(2, position_Incident.getReportedPosition());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(position_Incident.getReportedTime()));
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while registering incident: " + e.getMessage());
@@ -36,9 +36,9 @@ public class IncidentDAO {
             }
         }
     }
-    public ArrayList<Incident> read() {
-        ArrayList<Incident> incidents = new ArrayList<Incident>();
-        String sql = "SELECT * FROM incident";
+    public ArrayList<Position_Incident> read() {
+        ArrayList<Position_Incident> position_Incidents = new ArrayList<Position_Incident>();
+        String sql = "SELECT * FROM position_Incident";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -47,16 +47,15 @@ public class IncidentDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Incident incident = new Incident();
-                incident.setId(resultSet.getInt("id"));
-                incident.setLastPositionId(resultSet.getInt("lastPositionId"));
-                incident.setDanger(resultSet.getInt("danger"));
-                incident.setState(resultSet.getInt("state"));
-                incident.setDescription(resultSet.getString("description"));
-                incidents.add(incident);
+                Position_Incident position_Incident = new Position_Incident();
+                position_Incident.setId(resultSet.getInt("id"));
+                position_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
+                position_Incident.setReportedPosition(resultSet.getString("reportedPosition"));
+                position_Incident.setReportedTime(resultSet.getTimestamp("reportedTime").toLocalDateTime());
+                position_Incidents.add(position_Incident);
             }
-        } catch(Exception e) {
-            System.out.println("Error while retrieving incidents: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error while getting position and incident relations: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -72,11 +71,11 @@ public class IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return incidents;
+        return position_Incidents;
     };
-    public Incident read(int id) {
-        ArrayList<Incident> incidents = new ArrayList<Incident>();
-        String sql = "SELECT * FROM incident WHERE = ?";
+    public Position_Incident read(int id) {
+        ArrayList<Position_Incident> position_Incidents = new ArrayList<Position_Incident>();
+        String sql = "SELECT * FROM position_Incidents WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -86,16 +85,15 @@ public class IncidentDAO {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Incident incident = new Incident();
-                incident.setId(resultSet.getInt("id"));
-                incident.setLastPositionId(resultSet.getInt("lastPositionId"));
-                incident.setDanger(resultSet.getInt("danger"));
-                incident.setState(resultSet.getInt("state"));
-                incident.setDescription(resultSet.getString("description"));
-                incidents.add(incident);
+                Position_Incident position_Incident = new Position_Incident();
+                position_Incident.setId(resultSet.getInt("id"));
+                position_Incident.setAssignedIncidentId(resultSet.getInt("assignedIncidentId"));
+                position_Incident.setReportedPosition(resultSet.getString("reportedPosition"));
+                position_Incident.setReportedTime(resultSet.getTimestamp("reportedTime").toLocalDateTime());
+                position_Incidents.add(position_Incident);
             }
-        } catch(Exception e) {
-            System.out.println("Error while retrieving incidents: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error while getting position and incident relation by id: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -111,20 +109,19 @@ public class IncidentDAO {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
-        return incidents.get(0);
+        return position_Incidents.get(0);
     };
-    public void update(Incident incident) {
-        String sql = "UPDATE incident SET lastPositionId = ?,danger = ?,state = ?,description = ? WHERE id = ?";
+    public void update(Position_Incident position_Incident) {
+        String sql = "UPDATE position_Incident SET assignedIncidentId = ?, reportedPosition = ?, reportedTime = ? WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, incident.getLastPositionId());
-            preparedStatement.setInt(2, incident.getDanger());
-            preparedStatement.setInt(3, incident.getState());
-            preparedStatement.setString(4, incident.getDescription());
-            preparedStatement.setInt(5, incident.getId());
+            preparedStatement.setInt(1, position_Incident.getAssignedIncidentId());
+            preparedStatement.setString(2, position_Incident.getReportedPosition());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(position_Incident.getReportedTime()));
+            preparedStatement.setInt(4, position_Incident.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             System.out.println("Error while updating incident: " + e.getMessage());
@@ -136,13 +133,13 @@ public class IncidentDAO {
                 if (connection != null) {
                     connection.close();
                 }
-            } catch (Exception e) {
+            } catch(Exception e) {
                 System.out.println("Error while closing the connection: " + e.getMessage());
             }
         }
     };
     public void delete(int id) {
-        String sql = "DELETE FROM incident WHERE id = ?";
+        String sql = "DELETE FROM position_Incident WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -151,7 +148,7 @@ public class IncidentDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting action and incident association: " + e.getMessage());
+            System.out.println("Error while deleting incident: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -165,17 +162,17 @@ public class IncidentDAO {
             }
         }
     };
-    public void delete(Incident incident) {
-        String sql = "DELETE FROM incident WHERE id = ?";
+    public void delete(Position_Incident position_Incident) {
+        String sql = "DELETE FROM position_Incident WHERE id = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionFactory.createConnectionToMySQLDatabase();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, incident.getId());
+            preparedStatement.setInt(1, position_Incident.getId());
             preparedStatement.execute();
         } catch (Exception e) {
-            System.out.println("Error while deleting action and incident association: " + e.getMessage());
+            System.out.println("Error while deleting position and incident relation: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {

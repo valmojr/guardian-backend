@@ -1,18 +1,13 @@
 package guardian.backend.control;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import guardian.backend.model.AreaOfInterest;
 import guardian.backend.model.FirstResponder;
 import guardian.backend.model.FirstResponder_Action;
 import guardian.backend.model.FirstResponder_Patrol;
-import guardian.backend.model.Incident;
 import guardian.backend.model.DAO.AreaOfInterestDAO;
 import guardian.backend.model.DAO.FirstResponderDAO;
 import guardian.backend.model.DAO.FirstResponder_ActionDAO;
 import guardian.backend.model.DAO.FirstResponder_PatrolDAO;
-import guardian.backend.model.DAO.IncidentDAO;
 
 public class Registrator {
     public void registerTrooper(String username, String password, String email, String showedName, String description, int firstResponderType) {
@@ -53,18 +48,6 @@ public class Registrator {
         new FirstResponderDAO().create(firstResponder);
     }
     
-    public void createIncident(String firstReportedPosition, String reportTime, int danger, String description) {
-        Incident incident = new Incident();
-        ArrayList<String> reportedPosition = new ArrayList<String>();
-        reportedPosition.add(firstReportedPosition);
-        incident.setReportedPosition(reportedPosition);
-        ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
-        reportedPositionTime.add(LocalDateTime.now());
-        incident.setReportedPositionTime(reportedPositionTime);
-        incident.setDanger(danger);
-        incident.setDescription(description);
-        new IncidentDAO().create(incident);
-    }
     public void assignAction(int assignedFirstResponderId, int assignedActionId) {
         FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
         firstResponder_Action.setAssignedFirstResponderId(assignedFirstResponderId);

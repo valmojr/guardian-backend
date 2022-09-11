@@ -13,6 +13,8 @@ import guardian.backend.model.FirstResponder_Patrol;
 import guardian.backend.model.Incident;
 import guardian.backend.model.Patrol;
 import guardian.backend.model.Patrol_AreaOfInterest;
+import guardian.backend.model.Position_FirstResponder;
+import guardian.backend.model.Position_Incident;
 import guardian.backend.model.Report;
 import guardian.backend.model.Report_Action;
 import guardian.backend.model.Report_Patrol;
@@ -25,6 +27,8 @@ import guardian.backend.model.DAO.FirstResponder_PatrolDAO;
 import guardian.backend.model.DAO.IncidentDAO;
 import guardian.backend.model.DAO.PatrolDAO;
 import guardian.backend.model.DAO.Patrol_AreaOfInterestDAO;
+import guardian.backend.model.DAO.Position_FirstResponderDAO;
+import guardian.backend.model.DAO.Position_IncidentDAO;
 import guardian.backend.model.DAO.ReportDAO;
 import guardian.backend.model.DAO.Report_ActionDAO;
 import guardian.backend.model.DAO.Report_PatrolDAO;
@@ -201,6 +205,44 @@ public class ControllerTest {
         int afterDelete = classUnderTest.read().size();
         assertEquals(beforeDelete, afterDelete+1);
     };
+    @Test
+    public void Position_FirstResponderCRUDTest() {
+        Position_FirstResponderDAO classUnderTest = new Position_FirstResponderDAO();
+        Position_FirstResponder position_FirstResponder = new Position_FirstResponder();
+        position_FirstResponder.setAssignedFirstResponderId(199);
+        int beforeCreate = classUnderTest.read().size();
+        classUnderTest.create(position_FirstResponder);
+        int afterCreate= classUnderTest.read().size();
+        assertEquals(beforeCreate, afterCreate-1);
+        assertEquals(199, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedFirstResponderId());
+        position_FirstResponder.setId(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
+        position_FirstResponder.setAssignedFirstResponderId(129);
+        classUnderTest.update(position_FirstResponder);
+        assertEquals(129, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedFirstResponderId());
+        int beforeDelete = classUnderTest.read().size();
+        classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
+        int afterDelete = classUnderTest.read().size();
+        assertEquals(beforeDelete, afterDelete+1);
+    }
+    @Test
+    public void Position_IncidentCRUDTest() {
+        Position_IncidentDAO classUnderTest = new Position_IncidentDAO();
+        Position_Incident position_Incident = new Position_Incident();
+        position_Incident.setAssignedIncidentId(199);
+        int beforeCreate = classUnderTest.read().size();
+        classUnderTest.create(position_Incident);
+        int afterCreate= classUnderTest.read().size();
+        assertEquals(beforeCreate, afterCreate-1);
+        assertEquals(199, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedIncidentId());
+        position_Incident.setId(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
+        position_Incident.setAssignedIncidentId(129);
+        classUnderTest.update(position_Incident);
+        assertEquals(129, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedIncidentId());
+        int beforeDelete = classUnderTest.read().size();
+        classUnderTest.delete(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
+        int afterDelete = classUnderTest.read().size();
+        assertEquals(beforeDelete, afterDelete+1);
+    }
     @Test
     public void Report_ActionCRUDTest() {
         Report_ActionDAO classUnderTest = new Report_ActionDAO();

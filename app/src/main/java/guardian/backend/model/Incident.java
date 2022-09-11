@@ -1,12 +1,7 @@
 package guardian.backend.model;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 public class Incident {
     private int id;
-    private ArrayList<String> reportedPosition = new ArrayList<String>();
-    private ArrayList<LocalDateTime> reportedPositionTime = new ArrayList<LocalDateTime>();
+    private int lastPositionId;
     private int danger;
     private int state;
     private String description;
@@ -17,17 +12,11 @@ public class Incident {
     public void setId(int id) {
         this.id = id;
     }
-    public ArrayList<String> getReportedPosition() {
-        return reportedPosition;
+    public int getLastPositionId() {
+        return lastPositionId;
     }
-    public void setReportedPosition(ArrayList<String> reportedPosition) {
-        this.reportedPosition = reportedPosition;
-    }
-    public ArrayList<LocalDateTime> getReportedPositionTime() {
-        return reportedPositionTime;
-    }
-    public void setReportedPositionTime(ArrayList<LocalDateTime> reportedPositionTime) {
-        this.reportedPositionTime = reportedPositionTime;
+    public void setLastPositionId(int lastPositionId) {
+        this.lastPositionId = lastPositionId;
     }
     public int getDanger() {
         return danger;
@@ -46,10 +35,5 @@ public class Incident {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void updateReport(String reportedPosition) {
-        this.getReportedPosition().add(reportedPosition);
-        this.getReportedPositionTime().add(LocalDateTime.now());
     }
 }
