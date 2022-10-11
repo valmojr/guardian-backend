@@ -39,11 +39,14 @@ public class ControllerTest {
         Action_IncidentDAO classUnderTest = new Action_IncidentDAO();
         Action_Incident action_Incident = new Action_Incident();
         action_Incident.setAssignedActionId(199);
+        action_Incident.setAssignedIncidentId(100);
         int beforeCreate = classUnderTest.read().size();
         classUnderTest.create(action_Incident);
         int afterCreate= classUnderTest.read().size();
         assertEquals(beforeCreate, afterCreate-1);
         assertEquals(199, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedActionId());
+        //readByActionId test
+        //readByIncidentId test
         action_Incident.setId(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
         action_Incident.setAssignedActionId(129);
         classUnderTest.update(action_Incident);
@@ -96,11 +99,14 @@ public class ControllerTest {
         FirstResponder_ActionDAO classUnderTest = new FirstResponder_ActionDAO();
         FirstResponder_Action firstResponder_Action = new FirstResponder_Action();
         firstResponder_Action.setAssignedFirstResponderId(155);
+        firstResponder_Action.setAssignedActionId(100);
         int beforeCreate = classUnderTest.read().size();
         classUnderTest.create(firstResponder_Action);
         int afterCreate = classUnderTest.read().size();
         assertEquals(beforeCreate, afterCreate-1);
         assertEquals(155, classUnderTest.read().get(classUnderTest.read().size()-1).getAssignedFirstResponderId());
+        //readByFirstResponderId Test
+        //readByActionId Test
         firstResponder_Action.setId(classUnderTest.read().get(classUnderTest.read().size()-1).getId());
         firstResponder_Action.setAssignedFirstResponderId(121);
         classUnderTest.update(firstResponder_Action);
